@@ -1,0 +1,41 @@
+# Python & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+# Environment & Dependencies
+venv/
+.venv/
+
+# Ignore duplicate root keras binaries (kept in models/)
+/*.keras
+
+# Pytest & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node & Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+node_modules/
+.next/
+out/
+.pnpm-debug.log*
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Operating System & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log

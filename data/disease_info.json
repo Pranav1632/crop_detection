@@ -1,0 +1,672 @@
+{
+  "Apple___Apple_scab": {
+    "crop": "Apple",
+    "condition": "Apple Scab",
+    "status": "Diseased",
+    "severity": "Moderate",
+    "pathogen_type": "Fungus (Venturia inaequalis)",
+    "symptoms": "Velvety olive-green to dark brown circular spots on leaf surfaces that turn corky and cause premature defoliation.",
+    "organic_controls": [
+      "Spray liquid copper soap or sulfur sprays before bloom.",
+      "Apply bio-fungicides containing Bacillus subtilis.",
+      "Prune lower branches to maximize canopy airflow."
+    ],
+    "chemical_controls": [
+      "Apply myclobutanil, captan, or mancozeb according to local spray schedule guidelines."
+    ],
+    "prevention": [
+      "Rake and destroy fallen leaves in autumn to eliminate overwintering ascospores.",
+      "Choose scab-resistant varieties like Liberty, Freedom, or Enterprise."
+    ]
+  },
+  "Apple___Black_rot": {
+    "crop": "Apple",
+    "condition": "Black Rot (Frogeye Leaf Spot)",
+    "status": "Diseased",
+    "severity": "High",
+    "pathogen_type": "Fungus (Diplodia seriata / Botryosphaeria obtusa)",
+    "symptoms": "Small purple spots enlarging into frogeye circular lesions with tan centers and dark margins; can spread to fruit rot.",
+    "organic_controls": [
+      "Prune dead or diseased wood during the dormant season.",
+      "Spray copper-based fungicides at bud break."
+    ],
+    "chemical_controls": [
+      "Fungicides containing thiophanate-methyl, captan, or strobilurins (pyraclostrobin)."
+    ],
+    "prevention": [
+      "Remove mummified apples and dead twigs from the tree canopy.",
+      "Disinfect pruning shears with 70% isopropyl alcohol between cuts."
+    ]
+  },
+  "Apple___Cedar_apple_rust": {
+    "crop": "Apple",
+    "condition": "Cedar Apple Rust",
+    "status": "Diseased",
+    "severity": "Moderate",
+    "pathogen_type": "Fungus (Gymnosporangium juniperi-virginianae)",
+    "symptoms": "Bright yellow-orange or rust-colored spots on upper leaf surfaces, developing raised tube-like fungal aecia on the underside.",
+    "organic_controls": [
+      "Apply sulfur or copper fungicides when orange gelatinous galls appear on nearby junipers."
+    ],
+    "chemical_controls": [
+      "Immunox (myclobutanil), chlorothalonil, or trifloxystrobin at early pink bud stage."
+    ],
+    "prevention": [
+      "Remove eastern red cedar or juniper trees within a 1-mile radius where practical.",
+      "Plant rust-resistant cultivars (e.g., Gala, McIntosh are susceptible; Redfree and Liberty are resistant)."
+    ]
+  },
+  "Apple___healthy": {
+    "crop": "Apple",
+    "condition": "Healthy Leaf",
+    "status": "Healthy",
+    "severity": "None",
+    "pathogen_type": "None",
+    "symptoms": "Vibrant green, uniform texture, no discoloration or fungal lesions observed.",
+    "organic_controls": [
+      "Maintain routine balanced nutrition (NPK with trace micronutrients)."
+    ],
+    "chemical_controls": [
+      "No chemical intervention required."
+    ],
+    "prevention": [
+      "Continue regular monitoring, maintain balanced tree pruning, and ensure adequate drip irrigation."
+    ]
+  },
+  "Blueberry___healthy": {
+    "crop": "Blueberry",
+    "condition": "Healthy Leaf",
+    "status": "Healthy",
+    "severity": "None",
+    "pathogen_type": "None",
+    "symptoms": "Lush green foliage, normal leaf expansion, no necrotic spotting or chlorosis.",
+    "organic_controls": [
+      "Maintain acidic soil pH (4.5 - 5.5) with pine needle or peat mulch."
+    ],
+    "chemical_controls": [
+      "No chemical intervention required."
+    ],
+    "prevention": [
+      "Maintain consistent drip moisture; avoid waterlogging; inspect periodically for blueberry maggot or mummy berry."
+    ]
+  },
+  "Cherry_(including_sour)___Powdery_mildew": {
+    "crop": "Cherry",
+    "condition": "Powdery Mildew",
+    "status": "Diseased",
+    "severity": "Moderate",
+    "pathogen_type": "Fungus (Podosphaera clandestina)",
+    "symptoms": "White to light gray powdery fungal patches covering leaf surfaces, causing leaf curling and upward cupping.",
+    "organic_controls": [
+      "Apply neem oil, horticultural oils, or potassium bicarbonate solutions.",
+      "Introduce sulfur dust prior to high humidity periods."
+    ],
+    "chemical_controls": [
+      "Apply myclobutanil, tebuconazole, or quinoxyfen according to agricultural label."
+    ],
+    "prevention": [
+      "Prune dense branches to allow sunlight penetration and wind drying.",
+      "Avoid overhead sprinkler irrigation."
+    ]
+  },
+  "Cherry_(including_sour)___healthy": {
+    "crop": "Cherry",
+    "condition": "Healthy Leaf",
+    "status": "Healthy",
+    "severity": "None",
+    "pathogen_type": "None",
+    "symptoms": "Glossy, vibrant green foliage with healthy margins and firm venation.",
+    "organic_controls": [
+      "Provide organic compost mulch around drip line."
+    ],
+    "chemical_controls": [
+      "No chemical intervention required."
+    ],
+    "prevention": [
+      "Maintain regular monitoring for black cherry aphid and prune dead limbs yearly."
+    ]
+  },
+  "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot": {
+    "crop": "Corn (Maize)",
+    "condition": "Gray Leaf Spot",
+    "status": "Diseased",
+    "severity": "High",
+    "pathogen_type": "Fungus (Cercospora zeae-maydis)",
+    "symptoms": "Narrow, rectangular, tan-to-gray lesions restricted by leaf veins; can coalesce causing broad leaf blighting.",
+    "organic_controls": [
+      "Incorporate crop residues deep into soil to speed microbial decomposition of overwintered spores."
+    ],
+    "chemical_controls": [
+      "Apply triazole and strobilurin premix fungicides (e.g., azoxystrobin + propiconazole) at tasseling/VT stage."
+    ],
+    "prevention": [
+      "Rotate with non-host crops (soybeans, alfalfa) for at least two consecutive seasons.",
+      "Select corn hybrids with high Gray Leaf Spot tolerance."
+    ]
+  },
+  "Corn_(maize)___Common_rust_": {
+    "crop": "Corn (Maize)",
+    "condition": "Common Rust",
+    "status": "Diseased",
+    "severity": "Moderate",
+    "pathogen_type": "Fungus (Puccinia sorghi)",
+    "symptoms": "Cinnamon-brown to golden, powdery, raised pustules (uredinia) bursting on both upper and lower leaf surfaces.",
+    "organic_controls": [
+      "Apply bio-control agents like Bacillus amyloliquefaciens in early vegetative growth."
+    ],
+    "chemical_controls": [
+      "Foliar fungicides such as pyraclostrobin or fluxapyroxad when pustules appear before silking."
+    ],
+    "prevention": [
+      "Plant resistant corn hybrids containing Rp resistance genes.",
+      "Plant early to avoid peak mid-summer airborne spore flights."
+    ]
+  },
+  "Corn_(maize)___Northern_Leaf_Blight": {
+    "crop": "Corn (Maize)",
+    "condition": "Northern Leaf Blight",
+    "status": "Diseased",
+    "severity": "High",
+    "pathogen_type": "Fungus (Exserohilum turcicum)",
+    "symptoms": "Large, cigar-shaped or elliptical grayish-green to tan lesions (1-6 inches long) that rapidly destroy photosynthetic leaf area.",
+    "organic_controls": [
+      "Till debris under after harvest.",
+      "Apply copper or biological foliar sprays at early onset."
+    ],
+    "chemical_controls": [
+      "Apply azoxystrobin, pyraclostrobin, or metconazole during vegetative and early reproductive stages."
+    ],
+    "prevention": [
+      "Utilize multi-gene resistant seed varieties (Ht1, Ht2, Ht3).",
+      "Avoid continuous corn monoculture."
+    ]
+  },
+  "Corn_(maize)___healthy": {
+    "crop": "Corn (Maize)",
+    "condition": "Healthy Leaf",
+    "status": "Healthy",
+    "severity": "None",
+    "pathogen_type": "None",
+    "symptoms": "Vigorous dark green leaf blades, robust midrib structure, zero necrotic spotting.",
+    "organic_controls": [
+      "Apply nitrogen side-dressing and organic seaweed extract for balanced growth."
+    ],
+    "chemical_controls": [
+      "No chemical intervention required."
+    ],
+    "prevention": [
+      "Ensure adequate soil drainage, balanced macro-nutrients, and scouting at silking stage."
+    ]
+  },
+  "Grape___Black_rot": {
+    "crop": "Grape",
+    "condition": "Black Rot",
+    "status": "Diseased",
+    "severity": "High",
+    "pathogen_type": "Fungus (Guignardia bidwellii)",
+    "symptoms": "Small reddish-brown circular spots on leaves with black fruiting bodies (pycnidia) in a ring; shrivels berries into black mummies.",
+    "organic_controls": [
+      "Apply copper sulfate or lime-sulfur sprays before bud-break.",
+      "Remove all dried berry mummies from vines during winter pruning."
+    ],
+    "chemical_controls": [
+      "Mancozeb, myclobutanil, or azoxystrobin applied from 1-inch shoot growth through post-bloom."
+    ],
+    "prevention": [
+      "Canopy management: shoot thinning and leaf pulling around fruit clusters to accelerate dew drying."
+    ]
+  },
+  "Grape___Esca_(Black_Measles)": {
+    "crop": "Grape",
+    "condition": "Esca (Black Measles)",
+    "status": "Diseased",
+    "severity": "Critical",
+    "pathogen_type": "Fungal Complex (Phaeomoniella, Phaeoacremonium, Fomitiporia)",
+    "symptoms": "Tiger-stripe patterns on leaves (interveinal chlorosis and necrosis); dark brown or purple speckling on grapes.",
+    "organic_controls": [
+      "Paint pruning wounds with wound sealants containing Trichoderma harzianum.",
+      "Avoid pruning during wet weather."
+    ],
+    "chemical_controls": [
+      "No direct chemical cure for established systemic wood infections; preventative wound protection is vital."
+    ],
+    "prevention": [
+      "Practice double-pruning; sanitize cutting tools between vines; rogue out chronically dying vines."
+    ]
+  },
+  "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)": {
+    "crop": "Grape",
+    "condition": "Leaf Blight (Isariopsis Clavispora)",
+    "status": "Diseased",
+    "severity": "Moderate",
+    "pathogen_type": "Fungus (Pseudocercospora vitis / Isariopsis clavispora)",
+    "symptoms": "Large, irregular reddish-brown to dark necrotic spots with distinct dark margins, leading to early leaf yellowing and drop.",
+    "organic_controls": [
+      "Bordeaux mixture or copper hydroxide sprays applied in late spring."
+    ],
+    "chemical_controls": [
+      "Foliar applications of thiophanate-methyl, mancozeb, or strobilurin fungicides."
+    ],
+    "prevention": [
+      "Improve air circulation through canopy trimming; clear fallen leaves from under trellises."
+    ]
+  },
+  "Grape___healthy": {
+    "crop": "Grape",
+    "condition": "Healthy Leaf",
+    "status": "Healthy",
+    "severity": "None",
+    "pathogen_type": "None",
+    "symptoms": "Uniformly green palmate leaf surface, crisp margins, clear venation, intact leaf petiole.",
+    "organic_controls": [
+      "Apply organic foliar compost tea and maintain balanced vine vigor."
+    ],
+    "chemical_controls": [
+      "No chemical intervention required."
+    ],
+    "prevention": [
+      "Maintain consistent trellis training, weed control below canopy, and monitor for early fungal pressure."
+    ]
+  },
+  "Orange___Haunglongbing_(Citrus_greening)": {
+    "crop": "Orange",
+    "condition": "Citrus Greening (Huanglongbing)",
+    "status": "Diseased",
+    "severity": "Critical",
+    "pathogen_type": "Bacteria (Candidatus Liberibacter asiaticus, vectored by Asian citrus psyllid)",
+    "symptoms": "Asymmetric blotchy mottling across leaf veins, yellowing veins, stunted leaves, small lopsided bitter fruit.",
+    "organic_controls": [
+      "Release beneficial parasitoid wasps (Tamarixia radiata) against psyllids.",
+      "Apply foliar nutritional sprays (zinc, manganese, iron) to support tree resilience."
+    ],
+    "chemical_controls": [
+      "Target vector control: systematic insecticides (imidacloprid, thiamethoxam, bifenthrin) targeting psyllids."
+    ],
+    "prevention": [
+      "Use certified disease-free nursery stock.",
+      "Rogue and destroy verified infected trees to prevent grove-wide transmission."
+    ]
+  },
+  "Peach___Bacterial_spot": {
+    "crop": "Peach",
+    "condition": "Bacterial Spot",
+    "status": "Diseased",
+    "severity": "Moderate",
+    "pathogen_type": "Bacteria (Xanthomonas arboricola pv. pruni)",
+    "symptoms": "Small, water-soaked angular dark purple or brown spots that drop out, creating a shot-hole appearance on leaves.",
+    "organic_controls": [
+      "Apply chelated copper sprays at petal fall and shuck split."
+    ],
+    "chemical_controls": [
+      "Oxytetracycline (Mycoshield) or copper bactericides during damp vegetative growth."
+    ],
+    "prevention": [
+      "Plant in well-drained orchard soil; avoid excessive nitrogen fertilizer; choose resistant cultivars."
+    ]
+  },
+  "Peach___healthy": {
+    "crop": "Peach",
+    "condition": "Healthy Leaf",
+    "status": "Healthy",
+    "severity": "None",
+    "pathogen_type": "None",
+    "symptoms": "Deep green, lanceolate leaf blades, smooth serrated borders, healthy petioles.",
+    "organic_controls": [
+      "Apply organic mulch and balanced organic fertilizer."
+    ],
+    "chemical_controls": [
+      "No chemical intervention required."
+    ],
+    "prevention": [
+      "Conduct routine dormant oil sprays to manage scale and mites; ensure adequate summer watering."
+    ]
+  },
+  "Pepper,_bell___Bacterial_spot": {
+    "crop": "Pepper (Bell)",
+    "condition": "Bacterial Spot",
+    "status": "Diseased",
+    "severity": "High",
+    "pathogen_type": "Bacteria (Xanthomonas euvesicatoria)",
+    "symptoms": "Small, circular, water-soaked or translucent spots turning dark brown with yellow halos, leading to leaf drop.",
+    "organic_controls": [
+      "Copper bactericide combined with Bacillus subtilis foliar spray."
+    ],
+    "chemical_controls": [
+      "Fixed copper tank-mixed with mancozeb for synergistic bactericidal efficacy."
+    ],
+    "prevention": [
+      "Use certified pathogen-free treated seed; sanitize stakes and drip lines; avoid working in fields when foliage is wet."
+    ]
+  },
+  "Pepper,_bell___healthy": {
+    "crop": "Pepper (Bell)",
+    "condition": "Healthy Leaf",
+    "status": "Healthy",
+    "severity": "None",
+    "pathogen_type": "None",
+    "symptoms": "Uniform green elliptical leaves, strong turgor pressure, clean margins with no spotting.",
+    "organic_controls": [
+      "Maintain consistent organic calcium and magnesium supplementation."
+    ],
+    "chemical_controls": [
+      "No chemical intervention required."
+    ],
+    "prevention": [
+      "Use drip irrigation; maintain plastic or straw mulch to prevent soil-splash pathogens."
+    ]
+  },
+  "Potato___Early_blight": {
+    "crop": "Potato",
+    "condition": "Early Blight",
+    "status": "Diseased",
+    "severity": "Moderate",
+    "pathogen_type": "Fungus (Alternaria solani)",
+    "symptoms": "Concentric brown to black target-board rings on older lower leaves, often surrounded by a chlorotic yellow halo.",
+    "organic_controls": [
+      "Apply copper soap or bio-fungicide (Trichoderma) at first sign of lower leaf spotting.",
+      "Prune lower yellowing foliage."
+    ],
+    "chemical_controls": [
+      "Chlorothalonil, azoxystrobin, or difenoconazole applied every 7-10 days under humid conditions."
+    ],
+    "prevention": [
+      "Practice a 3-year crop rotation avoiding solanaceous crops; maintain optimal plant nitrogen to delay plant senescence."
+    ]
+  },
+  "Potato___Late_blight": {
+    "crop": "Potato",
+    "condition": "Late Blight",
+    "status": "Diseased",
+    "severity": "Critical",
+    "pathogen_type": "Oomycete (Phytophthora infestans)",
+    "symptoms": "Rapidly expanding water-soaked pale green or brown lesions with fuzzy white sporulation on the underside in humid conditions; destroys crops rapidly.",
+    "organic_controls": [
+      "Apply copper sulfate or copper hydroxide immediately before predicted rainy periods."
+    ],
+    "chemical_controls": [
+      "Mandipropamid, cymoxanil, dimethomorph, or metalaxyl/mefenoxam fungicides."
+    ],
+    "prevention": [
+      "Plant only certified disease-free seed tubers; eliminate cull piles; destroy infected plants immediately upon confirmation."
+    ]
+  },
+  "Potato___healthy": {
+    "crop": "Potato",
+    "condition": "Healthy Leaf",
+    "status": "Healthy",
+    "severity": "None",
+    "pathogen_type": "None",
+    "symptoms": "Compound leaves with rich green pinnate leaflets, strong vigor, no necrotic lesions.",
+    "organic_controls": [
+      "Support tuber bulking with organic potassium and well-rotted compost."
+    ],
+    "chemical_controls": [
+      "No chemical intervention required."
+    ],
+    "prevention": [
+      "Hill potatoes adequately to protect tubers; monitor weather-based late blight forecast models."
+    ]
+  },
+  "Raspberry___healthy": {
+    "crop": "Raspberry",
+    "condition": "Healthy Leaf",
+    "status": "Healthy",
+    "severity": "None",
+    "pathogen_type": "None",
+    "symptoms": "Healthy trifoliate leaves with serrated margins, light pubescent undersides, vigorous cane extension.",
+    "organic_controls": [
+      "Add organic aged wood chips and bone meal around root zone."
+    ],
+    "chemical_controls": [
+      "No chemical intervention required."
+    ],
+    "prevention": [
+      "Trellis canes to maintain upright growth and open air flow; thin old canes after fruiting."
+    ]
+  },
+  "Soybean___healthy": {
+    "crop": "Soybean",
+    "condition": "Healthy Leaf",
+    "status": "Healthy",
+    "severity": "None",
+    "pathogen_type": "None",
+    "symptoms": "Trifoliate leaves with deep emerald color, smooth blade surfaces, no defoliation or pustules.",
+    "organic_controls": [
+      "Inoculate seed with Bradyrhizobium japonicum for natural nitrogen fixation."
+    ],
+    "chemical_controls": [
+      "No chemical intervention required."
+    ],
+    "prevention": [
+      "Scout regularly for bean leaf beetle and frogeye leaf spot; maintain weed-free canopy rows."
+    ]
+  },
+  "Squash___Powdery_mildew": {
+    "crop": "Squash",
+    "condition": "Powdery Mildew",
+    "status": "Diseased",
+    "severity": "Moderate",
+    "pathogen_type": "Fungus (Podosphaera xanthii / Erysiphe cichoracearum)",
+    "symptoms": "Talcum powder-like white fungal colonies on both surfaces of leaves and stems, turning leaves yellow and crispy.",
+    "organic_controls": [
+      "Spray dilute milk-water solution (40:60 ratio) in sunlight.",
+      "Apply potassium bicarbonate, neem oil, or sulfur dust."
+    ],
+    "chemical_controls": [
+      "Myclobutanil, triflumizole, or quinoxyfen."
+    ],
+    "prevention": [
+      "Select PM-resistant squash cultivars; space plants widely to reduce humidity; water exclusively at soil level."
+    ]
+  },
+  "Strawberry___Leaf_scorch": {
+    "crop": "Strawberry",
+    "condition": "Leaf Scorch",
+    "status": "Diseased",
+    "severity": "Moderate",
+    "pathogen_type": "Fungus (Diplocarpon earlianum)",
+    "symptoms": "Numerous small, irregular purplish spots on upper leaf surfaces that enlarge and turn dark brown, giving the foliage a scorched look.",
+    "organic_controls": [
+      "Apply copper-based fungicides after spring growth commences.",
+      "Prune and destroy scorched leaves during renovation."
+    ],
+    "chemical_controls": [
+      "Captan, thiophanate-methyl, or pyraclostrobin sprays."
+    ],
+    "prevention": [
+      "Plant in full sun in raised beds with good soil drainage; avoid overhead irrigation; renovate strawberry beds annually."
+    ]
+  },
+  "Strawberry___healthy": {
+    "crop": "Strawberry",
+    "condition": "Healthy Leaf",
+    "status": "Healthy",
+    "severity": "None",
+    "pathogen_type": "None",
+    "symptoms": "Vibrant trifoliate leaves, bright green glossy leaflets with pronounced saw-toothed edges, sturdy runners.",
+    "organic_controls": [
+      "Provide organic straw mulch to keep leaves and fruit elevated off bare soil."
+    ],
+    "chemical_controls": [
+      "No chemical intervention required."
+    ],
+    "prevention": [
+      "Ensure regular drip watering and inspect crowns periodically for spider mites or crown rot."
+    ]
+  },
+  "Tomato___Bacterial_spot": {
+    "crop": "Tomato",
+    "condition": "Bacterial Spot",
+    "status": "Diseased",
+    "severity": "High",
+    "pathogen_type": "Bacteria (Xanthomonas spp.)",
+    "symptoms": "Small, angular, dark brown to black greasy water-soaked spots on leaves; spots may coalesce causing severe leaf blight.",
+    "organic_controls": [
+      "Apply copper octanoate (copper soap) tank-mixed with biological Bacillus amyloliquefaciens."
+    ],
+    "chemical_controls": [
+      "Fixed copper combined with mancozeb applied at 7-day intervals during wet periods."
+    ],
+    "prevention": [
+      "Use hot-water treated or certified disease-free seeds; avoid overhead sprinkler watering; rotate away from nightshades."
+    ]
+  },
+  "Tomato___Early_blight": {
+    "crop": "Tomato",
+    "condition": "Early Blight",
+    "status": "Diseased",
+    "severity": "Moderate",
+    "pathogen_type": "Fungus (Alternaria solani)",
+    "symptoms": "Dark brown concentric ring lesions (bullseye pattern) developing on older bottom leaves first, with surrounding chlorosis.",
+    "organic_controls": [
+      "Strip off bottom 12 inches of foliage as plant grows.",
+      "Apply copper soap or Serenade bio-fungicide weekly."
+    ],
+    "chemical_controls": [
+      "Daconil (chlorothalonil), Quadris (azoxystrobin), or mancozeb."
+    ],
+    "prevention": [
+      "Stake and prune plants for maximum airflow; apply heavy organic straw or plastic mulch to block soil splash; rotate crops."
+    ]
+  },
+  "Tomato___Late_blight": {
+    "crop": "Tomato",
+    "condition": "Late Blight",
+    "status": "Diseased",
+    "severity": "Critical",
+    "pathogen_type": "Oomycete (Phytophthora infestans)",
+    "symptoms": "Irregular water-soaked greasy gray-green lesions on leaves and stems that turn dark brown; white fungal fluff visible under leaves in high humidity.",
+    "organic_controls": [
+      "Apply preventative copper hydroxide thoroughly before cool, wet weather sets in."
+    ],
+    "chemical_controls": [
+      "Cymoxanil (Curzate), chlorothalonil, or Revus (mandipropamid) immediately upon disease alert."
+    ],
+    "prevention": [
+      "Scout daily during wet, overcast weather; eliminate volunteer potato and tomato plants; destroy infected plants immediately."
+    ]
+  },
+  "Tomato___Leaf_Mold": {
+    "crop": "Tomato",
+    "condition": "Leaf Mold",
+    "status": "Diseased",
+    "severity": "Moderate",
+    "pathogen_type": "Fungus (Passalora fulva / Fulvia fulva)",
+    "symptoms": "Pale green or yellowish spots with indefinite margins on upper leaf surfaces; velvety olive-green to brown mold on the undersides.",
+    "organic_controls": [
+      "Improve greenhouse ventilation and reduce relative humidity below 85%.",
+      "Apply copper or potassium bicarbonate foliar sprays."
+    ],
+    "chemical_controls": [
+      "Fungicides containing chlorothalonil, mancozeb, or cyazofamid."
+    ],
+    "prevention": [
+      "Increase plant spacing; use greenhouse circulating fans; select resistant cultivars with Cf resistance genes."
+    ]
+  },
+  "Tomato___Septoria_leaf_spot": {
+    "crop": "Tomato",
+    "condition": "Septoria Leaf Spot",
+    "status": "Diseased",
+    "severity": "Moderate",
+    "pathogen_type": "Fungus (Septoria lycopersici)",
+    "symptoms": "Numerous small circular spots (1/8 inch) with dark margins and gray/tan centers dotted with tiny black pycnidia specs.",
+    "organic_controls": [
+      "Remove lower affected leaves promptly.",
+      "Spray copper fungicides starting when first cluster flowers emerge."
+    ],
+    "chemical_controls": [
+      "Chlorothalonil, mancozeb, or tebuconazole."
+    ],
+    "prevention": [
+      "Never overhead water; mulch soil base thoroughly; sanitize tomato cages and stakes yearly with bleach solution."
+    ]
+  },
+  "Tomato___Spider_mites Two-spotted_spider_mite": {
+    "crop": "Tomato",
+    "condition": "Spider Mites (Two-Spotted Spider Mite)",
+    "status": "Diseased",
+    "severity": "Moderate",
+    "pathogen_type": "Pest (Tetranychus urticae)",
+    "symptoms": "Fine yellow or white stippling (pinpoint flecks) on upper leaf surfaces; fine silk webbing on leaf undersides and branch crotches.",
+    "organic_controls": [
+      "Release predatory mites (Phytoseiulus persimilis).",
+      "Apply insecticidal soap, rosemary oil, or neem oil sprays targeting leaf undersides."
+    ],
+    "chemical_controls": [
+      "Acaricides such as abamectin, bifenazate, or spiromesifen."
+    ],
+    "prevention": [
+      "Avoid hot, dry dust buildup around crop perimeter; do not over-apply synthetic pyrethroids which wipe out natural predators."
+    ]
+  },
+  "Tomato___Target_Spot": {
+    "crop": "Tomato",
+    "condition": "Target Spot",
+    "status": "Diseased",
+    "severity": "Moderate",
+    "pathogen_type": "Fungus (Corynespora cassiicola)",
+    "symptoms": "Brown pinpoint lesions enlarging into circular lesions with light brown centers and dark concentric rings; often causes leaf perforation and defoliation.",
+    "organic_controls": [
+      "Apply copper-based fungicides and improve canopy aeration."
+    ],
+    "chemical_controls": [
+      "Azoxystrobin + difenoconazole, fluopyram, or chlorothalonil."
+    ],
+    "prevention": [
+      "Maintain balanced plant nutrition; avoid excessive nitrogen; implement 3-year solanaceous crop rotation."
+    ]
+  },
+  "Tomato___Tomato_Yellow_Leaf_Curl_Virus": {
+    "crop": "Tomato",
+    "condition": "Tomato Yellow Leaf Curl Virus (TYLCV)",
+    "status": "Diseased",
+    "severity": "Critical",
+    "pathogen_type": "Virus (Begomovirus, vectored by Silverleaf Whitefly Bemisia tabaci)",
+    "symptoms": "Severe plant stunting, erect bushy shoots, upward leaf curling, yellow leaf margins, flower drop and yield failure.",
+    "organic_controls": [
+      "Use yellow sticky traps to capture whiteflies.",
+      "Spray insecticidal soaps or horticultural oils to suppress whitefly nymphs."
+    ],
+    "chemical_controls": [
+      "Systemic neonicotinoids or pyriproxyfen to control whitefly populations."
+    ],
+    "prevention": [
+      "Install fine insect-proof mesh netting in nursery beds; plant TYLCV-resistant tomato hybrids (e.g., Tygress, Skyway, Charger)."
+    ]
+  },
+  "Tomato___Tomato_mosaic_virus": {
+    "crop": "Tomato",
+    "condition": "Tomato Mosaic Virus (ToMV)",
+    "status": "Diseased",
+    "severity": "High",
+    "pathogen_type": "Virus (Tobamovirus, mechanically transmitted)",
+    "symptoms": "Mottled light and dark green mosaic patterns on leaves, fern-like distortion (shoestring leaves), and internal browning of fruit.",
+    "organic_controls": [
+      "No chemical or organic cure exists once a plant is systemically infected; rogue and destroy infected plants."
+    ],
+    "chemical_controls": [
+      "Disinfect tools and hands in non-fat dry milk solution (20%) to neutralize viral transmission during pruning."
+    ],
+    "prevention": [
+      "Prohibit tobacco smoking/vaping near plants; use certified virus-free seed; plant ToMV-resistant cultivars (Tm-2 gene)."
+    ]
+  },
+  "Tomato___healthy": {
+    "crop": "Tomato",
+    "condition": "Healthy Leaf",
+    "status": "Healthy",
+    "severity": "None",
+    "pathogen_type": "None",
+    "symptoms": "Deep green serrated foliage, vigorous stem growth, absence of leaf spotting, curling, or chlorosis.",
+    "organic_controls": [
+      "Apply balanced organic compost and maintain regular calcium levels to prevent blossom end rot."
+    ],
+    "chemical_controls": [
+      "No chemical intervention required."
+    ],
+    "prevention": [
+      "Maintain consistent drip irrigation, mulch soil, and prune sucker shoots for optimal canopy airflow."
+    ]
+  }
+}
