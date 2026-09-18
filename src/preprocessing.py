@@ -111,11 +111,11 @@ def preprocess_for_model(
 
     highres_rgb = np.array(display_pil, dtype=np.uint8)
 
-    # Use aspect-ratio-preserving fit for model input (prevents squashing circular lesions)
-    model_pil = ImageOps.fit(pil_img, IMAGE_SIZE, method=Image.Resampling.BILINEAR, centering=(0.5, 0.5))
-    model_rgb = np.array(model_pil, dtype=np.uint8)
+    # Resize for model matching Keras image_dataset_from_directory exactly
+    rgb_arr = np.array(pil_img)
+    model_rgb = cv2.resize(rgb_arr, IMAGE_SIZE, interpolation=cv2.INTER_LINEAR)
     
-    # Model input tensor: float32, range [0, 255] (EfficientNet has internal rescaling)
+    # Model input tensor: float32, range [0, 255]
     batch_tensor = np.expand_dims(model_rgb.astype(np.float32), axis=0)
     
     return batch_tensor, highres_rgb, quality_info
