@@ -211,7 +211,7 @@ export default function Home() {
               {/* Left Column: Visual Grad-CAM Attention Map */}
               <div className="lg:col-span-6 w-full">
                 <GradCamViewer
-                  originalUrl={diagnosis.original_image_base64 || previewUrl || undefined}
+                  originalUrl={previewUrl || diagnosis.original_image_base64 || undefined}
                   heatmapUrl={diagnosis.heatmap_base64 || undefined}
                   overlayUrl={diagnosis.overlay_base64 || undefined}
                 />

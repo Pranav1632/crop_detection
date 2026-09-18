@@ -81,24 +81,41 @@ def load_image(image_input: Union[bytes, io.BytesIO, Image.Image, np.ndarray, st
     return pil_img, bgr_arr
 
 
-def preprocess_for_model(image_input: Union[bytes, io.BytesIO, Image.Image, np.ndarray, str]) -> Tuple[np.ndarray, np.ndarray, Dict[str, Any]]:
+from PIL import Image, ImageOps
+
+
+def preprocess_for_model(
+    image_input: Union[bytes, io.BytesIO, Image.Image, np.ndarray, str],
+    max_display_size: int = 1200
+) -> Tuple[np.ndarray, np.ndarray, Dict[str, Any]]:
     """
     Prepares image for EfficientNetB0 inference:
     1. Loads image and assesses photo quality.
-    2. Resizes to 224x224 using bilinear interpolation.
-    3. Returns:
+    2. Keeps high-resolution image for sharp web visualization & Grad-CAM overlay.
+    3. Fits to 224x224 preserving aspect ratio (no geometric distortion of lesions).
+    4. Returns:
        - batch_tensor: (1, 224, 224, 3) float32 in [0, 255] for model.
-       - resized_rgb: (224, 224, 3) uint8 RGB array for visualization.
+       - highres_rgb: (H, W, 3) uint8 RGB array at full resolution for sharp rendering.
        - quality_info: Quality metrics and blur warnings.
     """
     pil_img, bgr_img = load_image(image_input)
     quality_info = assess_image_quality(bgr_img)
     
-    # Resize PIL image for consistent high-quality downsampling
-    resized_pil = pil_img.resize(IMAGE_SIZE, Image.Resampling.BILINEAR)
-    resized_rgb = np.array(resized_pil, dtype=np.uint8)
+    # Keep high-resolution version for visualization (scale down only if excessively huge)
+    w, h = pil_img.size
+    if max(w, h) > max_display_size:
+        scale = max_display_size / max(w, h)
+        display_pil = pil_img.resize((int(w * scale), int(h * scale)), Image.Resampling.LANCZOS)
+    else:
+        display_pil = pil_img
+
+    highres_rgb = np.array(display_pil, dtype=np.uint8)
+
+    # Use aspect-ratio-preserving fit for model input (prevents squashing circular lesions)
+    model_pil = ImageOps.fit(pil_img, IMAGE_SIZE, method=Image.Resampling.BILINEAR, centering=(0.5, 0.5))
+    model_rgb = np.array(model_pil, dtype=np.uint8)
     
     # Model input tensor: float32, range [0, 255] (EfficientNet has internal rescaling)
-    batch_tensor = np.expand_dims(resized_rgb.astype(np.float32), axis=0)
+    batch_tensor = np.expand_dims(model_rgb.astype(np.float32), axis=0)
     
-    return batch_tensor, resized_rgb, quality_info
+    return batch_tensor, highres_rgb, quality_info
