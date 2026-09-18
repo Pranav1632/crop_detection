@@ -5,45 +5,55 @@ import keras
 
 from src.config import (
     MODEL_KERAS_PATH,
+    MODEL_MOBILENET_PATH,
     MODEL_CONFIG_PATH,
     MODEL_WEIGHTS_PATH,
     CLASS_NAMES_PATH,
-    DISEASE_INFO_PATH
+    DISEASE_INFO_PATH,
+    DEFAULT_MODEL
 )
 
 logger = logging.getLogger(__name__)
 
-_MODEL_INSTANCE: Optional[keras.Model] = None
+_MODELS: Dict[str, keras.Model] = {}
 _CLASS_NAMES: Optional[List[str]] = None
 _DISEASE_INFO: Optional[Dict[str, Any]] = None
 
 
-def load_model() -> keras.Model:
+def load_model(model_name: str = DEFAULT_MODEL) -> keras.Model:
     """
-    Loads the trained EfficientNet-B0 model with singleton caching.
-    Tries crop_model.keras first, then config.json + model.weights.h5.
+    Loads either 'efficientnet' or 'mobilenet' model with caching.
     """
-    global _MODEL_INSTANCE
-    if _MODEL_INSTANCE is not None:
-        return _MODEL_INSTANCE
+    key = model_name.lower().strip()
+    if key in _MODELS:
+        return _MODELS[key]
 
-    if MODEL_KERAS_PATH.exists():
-        logger.info(f"Loading model from {MODEL_KERAS_PATH}...")
-        _MODEL_INSTANCE = keras.models.load_model(str(MODEL_KERAS_PATH))
-    elif MODEL_CONFIG_PATH.exists() and MODEL_WEIGHTS_PATH.exists():
-        logger.info(f"Loading model from config: {MODEL_CONFIG_PATH} and weights: {MODEL_WEIGHTS_PATH}...")
-        with open(MODEL_CONFIG_PATH, "r", encoding="utf-8") as f:
-            cfg = json.load(f)
-        model = keras.models.model_from_json(json.dumps(cfg))
-        model.load_weights(str(MODEL_WEIGHTS_PATH))
-        _MODEL_INSTANCE = model
+    if "mobile" in key:
+        # Load MobileNetV2
+        if MODEL_MOBILENET_PATH.exists():
+            logger.info(f"Loading MobileNetV2 from {MODEL_MOBILENET_PATH}...")
+            model = keras.models.load_model(str(MODEL_MOBILENET_PATH))
+        else:
+            raise FileNotFoundError(f"MobileNet model not found at {MODEL_MOBILENET_PATH}")
     else:
-        raise FileNotFoundError(
-            f"Model weights not found. Expected {MODEL_KERAS_PATH} or {MODEL_CONFIG_PATH} + {MODEL_WEIGHTS_PATH}"
-        )
+        # Load EfficientNet-B0
+        if MODEL_KERAS_PATH.exists():
+            logger.info(f"Loading EfficientNet from {MODEL_KERAS_PATH}...")
+            model = keras.models.load_model(str(MODEL_KERAS_PATH))
+        elif MODEL_CONFIG_PATH.exists() and MODEL_WEIGHTS_PATH.exists():
+            logger.info(f"Loading EfficientNet from config {MODEL_CONFIG_PATH} and weights {MODEL_WEIGHTS_PATH}...")
+            with open(MODEL_CONFIG_PATH, "r", encoding="utf-8") as f:
+                cfg = json.load(f)
+            model = keras.models.model_from_json(json.dumps(cfg))
+            model.load_weights(str(MODEL_WEIGHTS_PATH))
+        else:
+            raise FileNotFoundError(
+                f"Model weights not found. Expected {MODEL_KERAS_PATH} or {MODEL_CONFIG_PATH} + {MODEL_WEIGHTS_PATH}"
+            )
 
-    logger.info(f"Model successfully loaded! Input shape: {_MODEL_INSTANCE.input_shape}, Output shape: {_MODEL_INSTANCE.output_shape}")
-    return _MODEL_INSTANCE
+    logger.info(f"Model [{key}] loaded successfully! Output shape: {model.output_shape}")
+    _MODELS[key] = model
+    return model
 
 
 def load_class_names() -> List[str]:

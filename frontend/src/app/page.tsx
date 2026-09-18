@@ -19,10 +19,14 @@ import {
   CheckCircle2,
   ShieldAlert,
   HelpCircle,
+  Cpu,
+  Zap,
+  Smartphone,
 } from "lucide-react";
 
 export default function Home() {
   const [inputMode, setInputMode] = useState<"upload" | "camera">("upload");
+  const [selectedModel, setSelectedModel] = useState<"efficientnet" | "mobilenet">("efficientnet");
   const [selectedBlobOrFile, setSelectedBlobOrFile] = useState<File | Blob | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -39,11 +43,11 @@ export default function Home() {
     setError(null);
   };
 
-  const executeDiagnosis = async (item: File | Blob) => {
+  const executeDiagnosis = async (item: File | Blob, model = selectedModel) => {
     setIsAnalyzing(true);
     setError(null);
     try {
-      const res = await predictCropDisease(item, 3, true);
+      const res = await predictCropDisease(item, 3, true, model);
       setDiagnosis(res);
     } catch (err: any) {
       console.error("Diagnosis error:", err);
@@ -52,6 +56,13 @@ export default function Home() {
       );
     } finally {
       setIsAnalyzing(false);
+    }
+  };
+
+  const handleModelChange = (newModel: "efficientnet" | "mobilenet") => {
+    setSelectedModel(newModel);
+    if (selectedBlobOrFile) {
+      executeDiagnosis(selectedBlobOrFile, newModel);
     }
   };
 
@@ -104,6 +115,42 @@ export default function Home() {
 
         {/* Mode Selector & Input Area */}
         <div className="max-w-3xl mx-auto space-y-6">
+          {/* Architecture Switcher */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 rounded-2xl bg-slate-900/70 border border-slate-800 shadow-md">
+            <div className="flex items-center space-x-2 text-xs text-slate-300">
+              <Cpu className="w-4 h-4 text-emerald-400" />
+              <span className="font-semibold">AI Architecture:</span>
+            </div>
+
+            <div className="flex items-center space-x-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs w-full sm:w-auto">
+              <button
+                type="button"
+                onClick={() => handleModelChange("efficientnet")}
+                className={`flex-1 sm:flex-none flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-lg transition-all ${
+                  selectedModel === "efficientnet"
+                    ? "bg-emerald-600 text-white font-semibold shadow-sm"
+                    : "text-slate-400 hover:text-slate-200"
+                }`}
+              >
+                <Zap className="w-3.5 h-3.5 text-amber-300" />
+                <span>EfficientNet-B0 (98.51%)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleModelChange("mobilenet")}
+                className={`flex-1 sm:flex-none flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-lg transition-all ${
+                  selectedModel === "mobilenet"
+                    ? "bg-emerald-600 text-white font-semibold shadow-sm"
+                    : "text-slate-400 hover:text-slate-200"
+                }`}
+              >
+                <Smartphone className="w-3.5 h-3.5 text-cyan-300" />
+                <span>MobileNetV2 (Edge)</span>
+              </button>
+            </div>
+          </div>
+
           {/* Mode Switch Tabs */}
           <div className="flex rounded-2xl bg-slate-900/90 p-1.5 border border-slate-800 shadow-lg">
             <button

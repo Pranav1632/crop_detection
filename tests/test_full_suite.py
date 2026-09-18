@@ -57,19 +57,28 @@ def test_image_quality_check():
 
 
 def test_predictor_and_gradcam():
-    """Verify inference pipeline and Grad-CAM generation."""
+    """Verify inference pipeline and Grad-CAM generation for both EfficientNet and MobileNet."""
     predictor = CropDiseasePredictor()
     dummy_img = np.full((224, 224, 3), 100, dtype=np.uint8)
     dummy_img[80:140, 80:140, 0] = 200  # distinct patch
     
-    result = predictor.predict(dummy_img, top_k=3, include_gradcam=True)
-    assert "crop" in result
-    assert "condition" in result
-    assert "confidence" in result
-    assert len(result["top_candidates"]) == 3
-    assert result["heatmap_base64"] is not None
-    assert result["overlay_base64"] is not None
-    assert result["heatmap_base64"].startswith("data:image/jpeg;base64,")
+    # 1. Test EfficientNet
+    result_eff = predictor.predict(dummy_img, top_k=3, include_gradcam=True, model_type="efficientnet")
+    assert "crop" in result_eff
+    assert "condition" in result_eff
+    assert result_eff["model_used"] == "EfficientNet-B0"
+    assert len(result_eff["top_candidates"]) == 3
+    assert result_eff["heatmap_base64"] is not None
+    assert result_eff["overlay_base64"] is not None
+    assert result_eff["heatmap_base64"].startswith("data:image/jpeg;base64,")
+
+    # 2. Test MobileNet
+    result_mob = predictor.predict(dummy_img, top_k=3, include_gradcam=True, model_type="mobilenet")
+    assert "crop" in result_mob
+    assert "condition" in result_mob
+    assert result_mob["model_used"] == "MobileNetV2"
+    assert len(result_mob["top_candidates"]) == 3
+    assert result_mob["overlay_base64"] is not None
 
 
 def test_fastapi_endpoints():

@@ -35,7 +35,7 @@ export const DiagnosisCard: React.FC<DiagnosisCardProps> = ({ diagnosis }) => {
       {/* Top Header: Crop & Disease Title */}
       <div className="flex flex-wrap items-start justify-between gap-4 border-b border-slate-800 pb-5">
         <div className="space-y-1">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
               {diagnosis.crop}
             </span>
@@ -46,6 +46,11 @@ export const DiagnosisCard: React.FC<DiagnosisCardProps> = ({ diagnosis }) => {
             >
               Severity: {diagnosis.severity}
             </span>
+            {diagnosis.model_used && (
+              <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                Model: {diagnosis.model_used}
+              </span>
+            )}
           </div>
 
           <h2 className="text-2xl font-bold text-white tracking-tight">

@@ -143,7 +143,8 @@ async def get_disease_detail(class_name: str):
 async def predict_crop_disease(
     file: UploadFile = File(..., description="Leaf image file or live camera photo"),
     top_k: int = Form(3, description="Number of top candidates to return"),
-    include_gradcam: bool = Form(True, description="Whether to generate Grad-CAM visual heatmap")
+    include_gradcam: bool = Form(True, description="Whether to generate Grad-CAM visual heatmap"),
+    model_type: str = Form("efficientnet", description="Model architecture: 'efficientnet' or 'mobilenet'")
 ):
     """
     Accepts an uploaded image or camera snapshot, performs inference,
@@ -170,7 +171,8 @@ async def predict_crop_disease(
         result = predictor.predict(
             image_input=contents,
             top_k=top_k,
-            include_gradcam=include_gradcam
+            include_gradcam=include_gradcam,
+            model_type=model_type
         )
         return result
 

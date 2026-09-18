@@ -13,7 +13,8 @@ export async function checkHealth(): Promise<HealthStatus> {
 export async function predictCropDisease(
   imageFileOrBlob: File | Blob,
   topK: number = 3,
-  includeGradcam: boolean = true
+  includeGradcam: boolean = true,
+  modelType: "efficientnet" | "mobilenet" = "efficientnet"
 ): Promise<PredictionResponse> {
   const formData = new FormData();
   
@@ -25,6 +26,7 @@ export async function predictCropDisease(
   
   formData.append("top_k", topK.toString());
   formData.append("include_gradcam", includeGradcam.toString());
+  formData.append("model_type", modelType);
 
   const res = await fetch(`${API_BASE}/predict`, {
     method: "POST",

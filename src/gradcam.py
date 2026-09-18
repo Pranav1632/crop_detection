@@ -17,15 +17,29 @@ def compute_gradcam_heatmap(
     Computes a 2D Grad-CAM heatmap normalized to [0, 1] for the specified class_idx.
     Target layer is the final activation stage of the EfficientNet-B0 backbone.
     """
-    eff = model.get_layer("efficientnetb0")
+    tensor = tf.convert_to_tensor(input_tensor, dtype=tf.float32)
+
+    # Check architecture
+    has_rescaling = False
+    backbone = None
+    for layer in model.layers:
+        if "rescaling" in layer.name.lower():
+            has_rescaling = True
+        elif "mobilenet" in layer.name.lower():
+            backbone = layer
+        elif "efficientnet" in layer.name.lower():
+            backbone = layer
+
+    if backbone is None:
+        backbone = model.layers[1] if has_rescaling else model.layers[0]
+
     gap_layer = model.get_layer("global_average_pooling2d")
     dense_1 = model.get_layer("dense")
     dense_out = model.get_layer("dense_1")
 
-    tensor = tf.convert_to_tensor(input_tensor, dtype=tf.float32)
-
     with tf.GradientTape() as tape:
-        features = eff(tensor)
+        x_in = model.get_layer("rescaling")(tensor) if has_rescaling else tensor
+        features = backbone(x_in)
         tape.watch(features)
 
         # Forward pass through remaining classifier head

@@ -9,8 +9,10 @@ env/
 venv/
 .venv/
 
-# Ignore duplicate root keras binaries (kept in models/)
+# Ignore large binary weights & zip archives
 /*.keras
+models/mobilenet.keras
+*.zip
 
 # Pytest & Coverage
 .pytest_cache/

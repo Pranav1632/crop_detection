@@ -23,21 +23,23 @@ class CropDiseasePredictor:
         self,
         image_input: Union[bytes, io.BytesIO, Image.Image, np.ndarray, str],
         top_k: int = TOP_K_DEFAULT,
-        include_gradcam: bool = True
+        include_gradcam: bool = True,
+        model_type: str = "efficientnet"
     ) -> Dict[str, Any]:
         """
-        Executes end-to-end inference on a leaf image:
+        Executes end-to-end inference on a leaf image using specified model:
         1. Preprocesses image and evaluates camera quality.
-        2. Computes class probabilities.
+        2. Computes class probabilities with selected model (EfficientNet or MobileNet).
         3. Extracts Top-1 and Top-K predictions.
         4. Injects agronomic management recommendations.
         5. Computes Grad-CAM attention heatmap and visual overlay.
         """
         # 1. Preprocess & check quality
-        batch_tensor, resized_rgb, quality_info = preprocess_for_model(image_input)
+        batch_tensor, highres_rgb, quality_info = preprocess_for_model(image_input)
 
-        # 2. Forward pass
-        probs = self.model.predict(batch_tensor, verbose=0)[0]
+        # 2. Select & execute model forward pass
+        active_model = load_model(model_type)
+        probs = active_model.predict(batch_tensor, verbose=0)[0]
 
         # 3. Rank predictions
         top_indices = np.argsort(probs)[::-1][:top_k]
@@ -78,16 +80,18 @@ class CropDiseasePredictor:
         overlay_base64 = None
         if include_gradcam:
             try:
-                raw_cam = compute_gradcam_heatmap(self.model, batch_tensor, class_idx=top_1_idx)
-                overlay_rgb, heatmap_colored = generate_gradcam_overlay(resized_rgb, raw_cam, alpha=0.45)
+                raw_cam = compute_gradcam_heatmap(active_model, batch_tensor, class_idx=top_1_idx)
+                overlay_rgb, heatmap_colored = generate_gradcam_overlay(highres_rgb, raw_cam, alpha=0.45)
                 heatmap_base64 = array_to_base64_jpeg(heatmap_colored)
                 overlay_base64 = array_to_base64_jpeg(overlay_rgb)
             except Exception as e:
                 logger.error(f"Grad-CAM generation failed: {e}", exc_info=True)
 
-        original_base64 = array_to_base64_jpeg(resized_rgb)
+        original_base64 = array_to_base64_jpeg(highres_rgb)
+        model_name_display = "MobileNetV2" if "mobile" in model_type.lower() else "EfficientNet-B0"
 
         return {
+            "model_used": model_name_display,
             "crop": advisory["crop"],
             "condition": advisory["condition"],
             "class_name": top_1_class,

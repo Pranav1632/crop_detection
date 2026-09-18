@@ -8,10 +8,13 @@ MODELS_DIR = BASE_DIR / "models"
 DATA_DIR = BASE_DIR / "data"
 
 MODEL_KERAS_PATH = MODELS_DIR / "crop_model.keras"
+MODEL_MOBILENET_PATH = MODELS_DIR / "mobilenet.keras"
 MODEL_CONFIG_PATH = MODELS_DIR / "config.json"
 MODEL_WEIGHTS_PATH = MODELS_DIR / "model.weights.h5"
 CLASS_NAMES_PATH = MODELS_DIR / "class_names.json"
 DISEASE_INFO_PATH = DATA_DIR / "disease_info.json"
+
+DEFAULT_MODEL = "efficientnet"
 
 # Model hyperparameters
 INPUT_SHAPE = (224, 224, 3)

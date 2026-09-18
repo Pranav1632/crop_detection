@@ -3,11 +3,12 @@ from pydantic import BaseModel, Field
 
 
 class HealthResponse(BaseModel):
-    status: str = Field(..., example="healthy")
-    model_loaded: bool = Field(..., example=True)
-    classes_count: int = Field(..., example=38)
-    framework: str = Field(..., example="TensorFlow / Keras 3")
-    version: str = Field(..., example="1.0.0")
+    status: str
+    model_loaded: bool
+    classes_count: int
+    framework: str
+    version: str
+    supported_models: List[str] = ["EfficientNet-B0", "MobileNetV2"]
 
 
 class CandidateScore(BaseModel):
@@ -30,6 +31,7 @@ class ImageQuality(BaseModel):
 
 
 class PredictionResponse(BaseModel):
+    model_used: Optional[str] = "EfficientNet-B0"
     crop: str
     condition: str
     class_name: str

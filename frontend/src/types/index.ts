@@ -18,6 +18,7 @@ export interface ImageQuality {
 }
 
 export interface PredictionResponse {
+  model_used?: string;
   crop: string;
   condition: string;
   class_name: string;
