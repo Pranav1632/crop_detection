@@ -14,7 +14,7 @@ export async function predictCropDisease(
   imageFileOrBlob: File | Blob,
   topK: number = 3,
   includeGradcam: boolean = true,
-  modelType: "efficientnet" | "mobilenet" = "efficientnet"
+  modelType: "mobilenet" | "efficientnet" = "mobilenet"
 ): Promise<PredictionResponse> {
   const formData = new FormData();
   

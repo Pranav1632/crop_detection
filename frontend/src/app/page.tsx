@@ -12,25 +12,33 @@ import { PredictionResponse } from "@/types";
 import {
   Camera,
   UploadCloud,
-  Sparkles,
   Loader2,
   AlertCircle,
   RotateCcw,
   CheckCircle2,
-  ShieldAlert,
-  HelpCircle,
   Cpu,
   Zap,
   Smartphone,
+  Play,
+  Layers,
+  ArrowRight,
 } from "lucide-react";
 
 export default function Home() {
   const [inputMode, setInputMode] = useState<"upload" | "camera">("upload");
-  const [selectedModel, setSelectedModel] = useState<"efficientnet" | "mobilenet">("efficientnet");
+  // Default to MobileNetV2 as requested!
+  const [selectedModel, setSelectedModel] = useState<"mobilenet" | "efficientnet">("mobilenet");
   const [selectedBlobOrFile, setSelectedBlobOrFile] = useState<File | Blob | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [diagnosis, setDiagnosis] = useState<PredictionResponse | null>(null);
+
+  // Model Results Cache: keeps both MobileNet and EfficientNet outputs simultaneously!
+  const [resultsCache, setResultsCache] = useState<{
+    mobilenet?: PredictionResponse;
+    efficientnet?: PredictionResponse;
+  }>({});
+
+  const [compareMode, setCompareMode] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const clearSelection = () => {
@@ -39,30 +47,31 @@ export default function Home() {
     }
     setSelectedBlobOrFile(null);
     setPreviewUrl(null);
-    setDiagnosis(null);
+    setResultsCache({});
     setError(null);
   };
 
-  const executeDiagnosis = async (item: File | Blob, model = selectedModel) => {
+  const executeDiagnosis = async (
+    item: File | Blob,
+    model: "mobilenet" | "efficientnet" = selectedModel
+  ) => {
     setIsAnalyzing(true);
     setError(null);
     try {
       const res = await predictCropDisease(item, 3, true, model);
-      setDiagnosis(res);
+      // Cache result for this specific model so switching doesn't vanish data!
+      setResultsCache((prev) => ({
+        ...prev,
+        [model]: res,
+      }));
     } catch (err: any) {
       console.error("Diagnosis error:", err);
       setError(
-        err.message || "Failed to diagnose leaf image. Please ensure the backend server is running on port 8000."
+        err.message ||
+          "Failed to diagnose leaf image. Please ensure the backend server is running on port 8000."
       );
     } finally {
       setIsAnalyzing(false);
-    }
-  };
-
-  const handleModelChange = (newModel: "efficientnet" | "mobilenet") => {
-    setSelectedModel(newModel);
-    if (selectedBlobOrFile) {
-      executeDiagnosis(selectedBlobOrFile, newModel);
     }
   };
 
@@ -72,122 +81,139 @@ export default function Home() {
     const url = URL.createObjectURL(file);
     setSelectedBlobOrFile(file);
     setPreviewUrl(url);
-    executeDiagnosis(file);
+    // Don't auto-run blindly; let the user see the preview and click "Run Analysis" or trigger immediately!
+    executeDiagnosis(file, selectedModel);
   };
 
   const handleCameraCaptured = (blob: Blob, url: string) => {
     setSelectedBlobOrFile(blob);
     setPreviewUrl(url);
-    setInputMode("upload"); // switch back to display preview & results
-    executeDiagnosis(blob);
+    setInputMode("upload");
+    executeDiagnosis(blob, selectedModel);
   };
 
   const handleSampleSelected = (blob: Blob, url: string) => {
     clearSelection();
     setSelectedBlobOrFile(blob);
     setPreviewUrl(url);
-    executeDiagnosis(blob);
+    executeDiagnosis(blob, selectedModel);
   };
 
+  const handleModelSelect = (model: "mobilenet" | "efficientnet") => {
+    setSelectedModel(model);
+    // If result already cached in memory, it will display immediately!
+    // If not cached yet and an image is selected, offer to run it:
+    if (selectedBlobOrFile && !resultsCache[model]) {
+      executeDiagnosis(selectedBlobOrFile, model);
+    }
+  };
+
+  const activeDiagnosis = resultsCache[selectedModel];
+  const hasBothResults = !!(resultsCache.mobilenet && resultsCache.efficientnet);
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen bg-black text-white flex flex-col font-sans selection:bg-zinc-800 selection:text-white">
       <Header />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        {/* Hero Section */}
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Industrial-Grade Agricultural Computer Vision</span>
+      <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-10 space-y-10">
+        {/* Vercel-style Minimalist Hero */}
+        <div className="space-y-3">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs font-mono">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Crop Diagnostics v1.0</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
-            Crop Identification &{" "}
-            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
-              Disease Diagnosis
-            </span>
+          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white">
+            Crop Foliage Identification & Diagnosis
           </h1>
 
-          <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-            Snap a live field photo or upload an image of any crop leaf to obtain real-time pathological diagnosis, visual Grad-CAM lesion heatmaps, and actionable treatment protocols.
+          <p className="text-zinc-400 text-sm max-w-2xl leading-relaxed">
+            Fast, explainable deep learning diagnostics for 38 plant pathologies. Upload a leaf photo or capture live in the field to identify crop health, attention heatmaps, and treatment advice.
           </p>
         </div>
 
-        {/* Mode Selector & Input Area */}
-        <div className="max-w-3xl mx-auto space-y-6">
-          {/* Architecture Switcher */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 rounded-2xl bg-slate-900/70 border border-slate-800 shadow-md">
-            <div className="flex items-center space-x-2 text-xs text-slate-300">
-              <Cpu className="w-4 h-4 text-emerald-400" />
-              <span className="font-semibold">AI Architecture:</span>
+        {/* Control Center & Upload Card */}
+        <div className="rounded-xl bg-[#0a0a0a] border border-zinc-800/90 p-6 space-y-6 shadow-2xl">
+          {/* Architecture Switcher & Cache Indicators */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-800 pb-5">
+            <div>
+              <span className="text-xs font-mono text-zinc-400 block mb-1">Architecture</span>
+              <div className="flex items-center space-x-1.5 bg-black p-1 rounded-lg border border-zinc-800 text-xs font-mono">
+                <button
+                  type="button"
+                  onClick={() => handleModelSelect("mobilenet")}
+                  className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-md transition-all ${
+                    selectedModel === "mobilenet"
+                      ? "bg-zinc-800 text-white font-medium"
+                      : "text-zinc-500 hover:text-zinc-300"
+                  }`}
+                >
+                  <Smartphone className="w-3.5 h-3.5 text-zinc-400" />
+                  <span>MobileNetV2 (Default)</span>
+                  {resultsCache.mobilenet && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" title="Result cached" />
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleModelSelect("efficientnet")}
+                  className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-md transition-all ${
+                    selectedModel === "efficientnet"
+                      ? "bg-zinc-800 text-white font-medium"
+                      : "text-zinc-500 hover:text-zinc-300"
+                  }`}
+                >
+                  <Zap className="w-3.5 h-3.5 text-zinc-400" />
+                  <span>EfficientNet-B0</span>
+                  {resultsCache.efficientnet && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" title="Result cached" />
+                  )}
+                </button>
+              </div>
             </div>
 
-            <div className="flex items-center space-x-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs w-full sm:w-auto">
-              <button
-                type="button"
-                onClick={() => handleModelChange("efficientnet")}
-                className={`flex-1 sm:flex-none flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-lg transition-all ${
-                  selectedModel === "efficientnet"
-                    ? "bg-emerald-600 text-white font-semibold shadow-sm"
-                    : "text-slate-400 hover:text-slate-200"
-                }`}
-              >
-                <Zap className="w-3.5 h-3.5 text-amber-300" />
-                <span>EfficientNet-B0 (98.51%)</span>
-              </button>
+            {/* Input Mode Selector (Upload vs Camera) */}
+            <div>
+              <span className="text-xs font-mono text-zinc-400 block mb-1">Input Source</span>
+              <div className="flex items-center space-x-1 bg-black p-1 rounded-lg border border-zinc-800 text-xs font-mono">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setInputMode("upload");
+                    if (!previewUrl) clearSelection();
+                  }}
+                  className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-md transition-all ${
+                    inputMode === "upload"
+                      ? "bg-zinc-800 text-white font-medium"
+                      : "text-zinc-500 hover:text-zinc-300"
+                  }`}
+                >
+                  <UploadCloud className="w-3.5 h-3.5" />
+                  <span>Upload</span>
+                </button>
 
-              <button
-                type="button"
-                onClick={() => handleModelChange("mobilenet")}
-                className={`flex-1 sm:flex-none flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-lg transition-all ${
-                  selectedModel === "mobilenet"
-                    ? "bg-emerald-600 text-white font-semibold shadow-sm"
-                    : "text-slate-400 hover:text-slate-200"
-                }`}
-              >
-                <Smartphone className="w-3.5 h-3.5 text-cyan-300" />
-                <span>MobileNetV2 (Edge)</span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setInputMode("camera");
+                    clearSelection();
+                  }}
+                  className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-md transition-all ${
+                    inputMode === "camera"
+                      ? "bg-zinc-800 text-white font-medium"
+                      : "text-zinc-500 hover:text-zinc-300"
+                  }`}
+                >
+                  <Camera className="w-3.5 h-3.5" />
+                  <span>Live Camera</span>
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* Mode Switch Tabs */}
-          <div className="flex rounded-2xl bg-slate-900/90 p-1.5 border border-slate-800 shadow-lg">
-            <button
-              type="button"
-              onClick={() => {
-                setInputMode("upload");
-                if (!previewUrl) clearSelection();
-              }}
-              className={`flex-1 flex items-center justify-center space-x-2 py-3 rounded-xl text-sm font-semibold transition-all ${
-                inputMode === "upload"
-                  ? "bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md"
-                  : "text-slate-400 hover:text-slate-200"
-              }`}
-            >
-              <UploadCloud className="w-4 h-4" />
-              <span>Upload Leaf Image</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setInputMode("camera");
-                clearSelection();
-              }}
-              className={`flex-1 flex items-center justify-center space-x-2 py-3 rounded-xl text-sm font-semibold transition-all ${
-                inputMode === "camera"
-                  ? "bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md"
-                  : "text-slate-400 hover:text-slate-200"
-              }`}
-            >
-              <Camera className="w-4 h-4" />
-              <span>Live Field Camera</span>
-            </button>
-          </div>
-
-          {/* Active Input Mode Container */}
-          <div className="transition-all duration-200">
+          {/* Active Input View */}
+          <div>
             {inputMode === "camera" ? (
               <CameraCapture
                 onCapture={handleCameraCaptured}
@@ -211,73 +237,136 @@ export default function Home() {
             )}
           </div>
 
-          {/* Loading Indicator */}
-          {isAnalyzing && (
-            <div className="p-6 rounded-2xl bg-slate-900 border border-emerald-500/30 flex flex-col items-center justify-center space-y-3 text-center animate-pulse">
-              <Loader2 className="w-8 h-8 text-emerald-400 animate-spin" />
-              <div>
-                <p className="text-sm font-semibold text-white">Analyzing Crop Foliage...</p>
-                <p className="text-xs text-slate-400">
-                  Running EfficientNet-B0 inference and generating Grad-CAM explainability heatmap...
-                </p>
+          {/* Clickable Action Bar (Explicit Execute / Re-run) */}
+          {selectedBlobOrFile && (
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-zinc-800/80">
+              <div className="text-xs font-mono text-zinc-400 flex items-center gap-2">
+                <span>Active Model:</span>
+                <span className="text-white font-semibold uppercase">
+                  {selectedModel === "mobilenet" ? "MobileNetV2" : "EfficientNet-B0"}
+                </span>
+                {resultsCache[selectedModel] && (
+                  <span className="text-emerald-400 text-[11px] bg-emerald-950/40 border border-emerald-800/60 px-2 py-0.5 rounded">
+                    Cached
+                  </span>
+                )}
+              </div>
+
+              <div className="flex items-center space-x-2">
+                {hasBothResults && (
+                  <button
+                    type="button"
+                    onClick={() => setCompareMode(!compareMode)}
+                    className="flex items-center space-x-1.5 px-3 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-xs font-mono text-zinc-200 transition"
+                  >
+                    <Layers className="w-3.5 h-3.5" />
+                    <span>{compareMode ? "Single View" : "Compare Both Models"}</span>
+                  </button>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => executeDiagnosis(selectedBlobOrFile, selectedModel)}
+                  disabled={isAnalyzing}
+                  className="flex items-center space-x-2 px-5 py-2 rounded-lg bg-white text-black hover:bg-zinc-200 font-medium text-xs transition disabled:opacity-50 shadow"
+                >
+                  {isAnalyzing ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <span>Analyzing Leaf...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Play className="w-3.5 h-3.5 fill-current" />
+                      <span>{activeDiagnosis ? "Re-Run Analysis" : "Execute Analysis"}</span>
+                    </>
+                  )}
+                </button>
               </div>
             </div>
           )}
 
-          {/* Error Alert */}
+          {/* Error Banner */}
           {error && (
-            <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-sm flex items-start space-x-3">
-              <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
-              <div className="space-y-1">
-                <p className="font-semibold">Inference Error</p>
-                <p className="text-xs text-rose-200/90">{error}</p>
-              </div>
+            <div className="p-3.5 rounded-lg bg-rose-950/30 border border-rose-800/80 text-rose-300 text-xs flex items-center space-x-2 font-mono">
+              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+              <span>{error}</span>
             </div>
           )}
         </div>
 
-        {/* Results Section */}
-        {diagnosis && !isAnalyzing && (
-          <div className="space-y-6 pt-4">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <div className="flex items-center space-x-2">
-                <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-                <h2 className="text-lg font-bold text-white">Diagnostic Report & Analysis</h2>
+        {/* Comparative Side-by-Side View (If user clicked 'Compare Both Models') */}
+        {compareMode && hasBothResults && (
+          <div className="space-y-4">
+            <h3 className="text-sm font-mono uppercase tracking-wider text-zinc-400 flex items-center gap-2">
+              <Layers className="w-4 h-4 text-zinc-300" />
+              Direct Architecture Comparison
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* MobileNet Result */}
+              {resultsCache.mobilenet && (
+                <div className="space-y-3">
+                  <span className="text-xs font-mono text-zinc-400">📱 MobileNetV2 Output:</span>
+                  <DiagnosisCard diagnosis={resultsCache.mobilenet} />
+                </div>
+              )}
+
+              {/* EfficientNet Result */}
+              {resultsCache.efficientnet && (
+                <div className="space-y-3">
+                  <span className="text-xs font-mono text-zinc-400">⚡ EfficientNet-B0 Output:</span>
+                  <DiagnosisCard diagnosis={resultsCache.efficientnet} />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Standard Single Diagnostic Results View */}
+        {!compareMode && activeDiagnosis && !isAnalyzing && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+              <div className="flex items-center space-x-2 text-xs font-mono text-zinc-400">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <span className="text-white font-semibold">Diagnostic Report</span>
+                <span>·</span>
+                <span>{activeDiagnosis.model_used}</span>
               </div>
               <button
                 type="button"
                 onClick={clearSelection}
-                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-900 hover:bg-slate-800 text-xs font-medium text-slate-300 transition"
+                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-md border border-zinc-800 bg-zinc-900 hover:bg-zinc-800 text-xs font-mono text-zinc-300 transition"
               >
-                <RotateCcw className="w-3.5 h-3.5" />
-                <span>Test Another Leaf</span>
+                <RotateCcw className="w-3 h-3" />
+                <span>Reset</span>
               </button>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-              {/* Left Column: Visual Grad-CAM Attention Map */}
+              {/* Visual Grad-CAM View */}
               <div className="lg:col-span-6 w-full">
                 <GradCamViewer
-                  originalUrl={previewUrl || diagnosis.original_image_base64 || undefined}
-                  heatmapUrl={diagnosis.heatmap_base64 || undefined}
-                  overlayUrl={diagnosis.overlay_base64 || undefined}
+                  originalUrl={previewUrl || activeDiagnosis.original_image_base64 || undefined}
+                  heatmapUrl={activeDiagnosis.heatmap_base64 || undefined}
+                  overlayUrl={activeDiagnosis.overlay_base64 || undefined}
                 />
               </div>
 
-              {/* Right Column: Full Diagnosis & Agronomic Plan */}
+              {/* Diagnosis Summary & Action Plan */}
               <div className="lg:col-span-6 w-full">
-                <DiagnosisCard diagnosis={diagnosis} />
+                <DiagnosisCard diagnosis={activeDiagnosis} />
               </div>
             </div>
           </div>
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-slate-950 py-6 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p>© 2026 CropDetect AI · Advanced Agricultural Computer Vision</p>
-          <p>Trained on 38 Pathologies · MobileNetV2 / EfficientNet-B0 · 98.51% Accuracy</p>
+      {/* Vercel-style Footer */}
+      <footer className="border-t border-zinc-900 bg-black py-6 text-xs font-mono text-zinc-600">
+        <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p>© 2026 CropDetect AI · Industrial Agricultural Vision</p>
+          <p>MobileNetV2 (Default) · EfficientNet-B0 · 38 Classes</p>
         </div>
       </footer>
     </div>

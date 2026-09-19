@@ -14,7 +14,7 @@ MODEL_WEIGHTS_PATH = MODELS_DIR / "model.weights.h5"
 CLASS_NAMES_PATH = MODELS_DIR / "class_names.json"
 DISEASE_INFO_PATH = DATA_DIR / "disease_info.json"
 
-DEFAULT_MODEL = "efficientnet"
+DEFAULT_MODEL = "mobilenet"
 
 # Model hyperparameters
 INPUT_SHAPE = (224, 224, 3)
