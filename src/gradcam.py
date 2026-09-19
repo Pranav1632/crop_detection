@@ -19,33 +19,44 @@ def compute_gradcam_heatmap(
     """
     tensor = tf.convert_to_tensor(input_tensor, dtype=tf.float32)
 
-    # Check architecture
-    has_rescaling = False
+    # Dynamically locate the convolutional backbone
     backbone = None
-    for layer in model.layers:
-        if "rescaling" in layer.name.lower():
-            has_rescaling = True
-        elif "mobilenet" in layer.name.lower():
+    backbone_idx = 0
+    for i, layer in enumerate(model.layers):
+        name = layer.name.lower()
+        if "mobilenet" in name or "efficientnet" in name:
             backbone = layer
-        elif "efficientnet" in layer.name.lower():
-            backbone = layer
+            backbone_idx = i
+            break
 
     if backbone is None:
-        backbone = model.layers[1] if has_rescaling else model.layers[0]
+        # Fallback: locate last 4D layer before pooling/dense
+        for i, layer in enumerate(model.layers):
+            if "pool" in layer.name.lower() or "dense" in layer.name.lower():
+                backbone_idx = max(0, i - 1)
+                backbone = model.layers[backbone_idx]
+                break
 
-    gap_layer = model.get_layer("global_average_pooling2d")
-    dense_1 = model.get_layer("dense")
-    dense_out = model.get_layer("dense_1")
+    if backbone is None:
+        backbone_idx = 0
+        backbone = model.layers[0]
+
+    classifier_layers = model.layers[backbone_idx + 1:]
 
     with tf.GradientTape() as tape:
-        x_in = model.get_layer("rescaling")(tensor) if has_rescaling else tensor
+        # Forward through any pre-backbone layers (e.g. Rescaling)
+        x_in = tensor
+        for layer in model.layers[:backbone_idx]:
+            x_in = layer(x_in)
+
         features = backbone(x_in)
         tape.watch(features)
 
-        # Forward pass through remaining classifier head
-        x = gap_layer(features)
-        x = dense_1(x)
-        preds = dense_out(x)
+        # Forward pass through all downstream classifier layers in order
+        x = features
+        for layer in classifier_layers:
+            x = layer(x)
+        preds = x
 
         if class_idx is None:
             class_idx = int(tf.argmax(preds[0]))
@@ -54,6 +65,8 @@ def compute_gradcam_heatmap(
 
     # Gradient of the predicted class score w.r.t feature maps
     grads = tape.gradient(loss, features)
+    if grads is None:
+        return np.zeros((features.shape[1], features.shape[2]), dtype=np.float32)
 
     # Global average pooling of gradients (channel importance weights)
     pooled_grads = tf.reduce_mean(grads, axis=(0, 1, 2))
@@ -64,12 +77,15 @@ def compute_gradcam_heatmap(
     # Apply ReLU: only features with positive influence are kept
     cam = tf.maximum(cam, 0.0)
 
-    # Normalize between 0 and 1
+    # Normalize between 0 and 1 safely
     max_val = tf.reduce_max(cam)
     if max_val > 0:
         cam = cam / max_val
+    else:
+        cam = tf.zeros_like(cam)
 
-    return cam.numpy()
+    cam_np = cam.numpy()
+    return np.nan_to_num(cam_np, nan=0.0, posinf=1.0, neginf=0.0)
 
 
 def generate_gradcam_overlay(
