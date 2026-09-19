@@ -7,6 +7,7 @@
 [![Next.js 16](https://img.shields.io/badge/Next.js-16.1-black.svg?logo=next.js&logoColor=white)](https://nextjs.org/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind-v4.0-38bdf8.svg?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Validation Accuracy](https://img.shields.io/badge/Val_Accuracy-98.51%25-brightgreen.svg)]()
+[![Dataset: Kaggle](https://img.shields.io/badge/Dataset-Kaggle%20New%20Plant%20Diseases-20BEFF.svg?logo=kaggle&logoColor=white)](https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
@@ -228,6 +229,20 @@ cropdetect/
 ├── requirements.txt                   # Production Python dependencies
 └── run.py                             # Master multi-service orchestration CLI launcher
 ```
+
+---
+
+## 🗃️ Training & Benchmark Dataset
+
+Both the **MobileNetV2** and **EfficientNet-B0** deep learning models in CropDetect AI are trained, validated, and benchmarked on the widely recognized **[New Plant Diseases Dataset (Augmented)](https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset)** hosted on Kaggle:
+
+- **Dataset Source**: [Kaggle — New Plant Diseases Dataset by Vipul Sachdeva](https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset)
+- **Dataset Scale**: **87,000+ RGB leaf photographs** (pre-split into `train`, `valid`, and `test` directories).
+- **Taxonomic Scope**: **14 Agricultural Crop Species** across **38 Discrete Pathological & Healthy Classes** (26 diseased conditions + 12 healthy controls).
+- **Data Preprocessing & Augmentations**:
+  - Re-created and augmented from the foundational **PlantVillage** dataset.
+  - Features an 80/20 training-to-validation partition.
+  - Applies offline and online field-simulation augmentations (random geometric rotations, perspective tilts, horizontal/vertical flips, and color/illumination jittering) to prevent background bias and promote robust in-field generalization under natural sunlight.
 
 ---
 
@@ -595,6 +610,14 @@ If you utilize CropDetect AI or its agronomic database in research or agricultur
   title = {CropDetect AI: Automated Crop Identification, Disease Diagnosis & Agronomic Advisory Platform},
   year = {2026},
   url = {https://github.com/Pranav1632/crop_detection}
+}
+
+@dataset{new_plant_diseases_dataset,
+  author = {Vipul Sachdeva},
+  title = {New Plant Diseases Dataset (Augmented)},
+  year = {2019},
+  publisher = {Kaggle},
+  url = {https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset}
 }
 ```
 

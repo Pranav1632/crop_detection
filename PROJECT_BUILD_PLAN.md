@@ -11,6 +11,8 @@ The goal of this project is to develop an industrial-grade, deployable computer 
 
 The project is structured with an **experiment-first workflow**: prototyping and hyperparameter sweeps will be conducted first in structured **Jupyter Notebooks**, then systematically refactored into production-ready Python modules, an asynchronous **FastAPI** backend, and an **interactive Web Application** allowing users to upload any plant image for real-time inference and explainable visual heatmaps (Grad-CAM).
 
+The models are trained and benchmarked on the **[New Plant Diseases Dataset (Augmented)](https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset)** by Vipul Sachdeva on Kaggle, containing 87,000+ RGB leaf images covering 38 classes across 14 crop species.
+
 ---
 
 ## 2. Phase-by-Phase Build Workflow (Notebook-First to Production)
