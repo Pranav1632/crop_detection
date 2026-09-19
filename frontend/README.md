@@ -8,14 +8,30 @@ This directory contains the production-grade frontend client for **CropDetect AI
   <table border="0">
     <tr>
       <td width="50%" align="center" valign="top">
-        <h4>Split Attribution Mode (MobileNetV2)</h4>
+        <h4>Figure 1: MobileNetV2 (Split Saliency Mode)</h4>
         <img src="./public/dashboard_preview.png" alt="CropDetect AI Split View - MobileNetV2" width="100%" />
-        <p align="center"><em>Side-by-side foliage and raw Grad-CAM lesion focus.</em></p>
+        <div align="left" style="font-size: 0.85em; padding: 6px;">
+          <strong>Diagnosis Output:</strong>
+          <ul>
+            <li><strong>Disease</strong>: Tomato — Septoria Leaf Spot (87.94%)</li>
+            <li><strong>Status</strong>: Pathology Detected (Moderate)</li>
+            <li><strong>Grad-CAM</strong>: Split mode isolating lesion focus points</li>
+            <li><strong>Top Candidates</strong>: Septoria (87.94%), Target Spot (7.63%), Grape Healthy (4.12%)</li>
+          </ul>
+        </div>
       </td>
       <td width="50%" align="center" valign="top">
-        <h4>Interactive Blend Mode (EfficientNet-B0)</h4>
+        <h4>Figure 2: EfficientNet-B0 (Interactive Blend Mode)</h4>
         <img src="./public/gradcam_blend_preview.png" alt="CropDetect AI Blend View - EfficientNet-B0" width="100%" />
-        <p align="center"><em>Interactive opacity slider (55% AI attention) overlaid on leaf.</em></p>
+        <div align="left" style="font-size: 0.85em; padding: 6px;">
+          <strong>Diagnosis Output:</strong>
+          <ul>
+            <li><strong>Disease</strong>: Tomato — Septoria Leaf Spot (77.72%)</li>
+            <li><strong>Status</strong>: Pathology Detected (Moderate)</li>
+            <li><strong>Grad-CAM</strong>: 55% AI Attention slider overlaying lesion necrosis</li>
+            <li><strong>Top Candidates</strong>: Septoria (77.72%), Target Spot (16.25%), Grape Black Rot (6.02%)</li>
+          </ul>
+        </div>
       </td>
     </tr>
   </table>

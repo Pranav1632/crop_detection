@@ -17,14 +17,48 @@
   <table border="0">
     <tr>
       <td width="50%" align="center" valign="top">
-        <h4>Split Attribution Mode (MobileNetV2)</h4>
+        <h4>Figure 1: MobileNetV2 — Split Attribution Mode</h4>
         <img src="./assets/dashboard_preview.png" alt="CropDetect AI Split View - MobileNetV2" width="100%" style="border-radius: 8px;" />
-        <p align="center"><em><strong>Figure 1</strong>: Split view showing original foliage side-by-side with raw Grad-CAM attribution, 87.94% confidence, and differential candidates.</em></p>
+        <div align="left" style="font-size: 0.9em; padding: 10px;">
+          <p><strong>Diagnosis Result:</strong></p>
+          <ul>
+            <li><strong>Model</strong>: MobileNetV2 (Edge Architecture)</li>
+            <li><strong>Condition Detected</strong>: <strong>Tomato — Septoria Leaf Spot</strong> (<em>Septoria lycopersici</em>)</li>
+            <li><strong>Status & Severity</strong>: 🔴 Pathology Detected | <strong>Moderate Severity</strong></li>
+            <li><strong>Primary Confidence</strong>: <strong>87.94%</strong></li>
+            <li><strong>Visual Saliency</strong>: Split Mode displaying original foliage alongside raw Grad-CAM attribution isolating lesion clusters.</li>
+            <li><strong>Top Candidates</strong>:
+              <ol>
+                <li>Tomato • Septoria Leaf Spot: <strong>87.94%</strong></li>
+                <li>Tomato • Target Spot: <strong>7.63%</strong></li>
+                <li>Grape • Healthy Leaf: <strong>4.12%</strong></li>
+              </ol>
+            </li>
+            <li><strong>Prescribed Action Plan</strong>: Promptly prune lower affected leaves; apply copper-based organic fungicides when first cluster flowers emerge.</li>
+          </ul>
+        </div>
       </td>
       <td width="50%" align="center" valign="top">
-        <h4>Interactive Blend Mode (EfficientNet-B0)</h4>
+        <h4>Figure 2: EfficientNet-B0 — Interactive Blend Mode</h4>
         <img src="./assets/gradcam_blend_preview.png" alt="CropDetect AI Blend View - EfficientNet-B0" width="100%" style="border-radius: 8px;" />
-        <p align="center"><em><strong>Figure 2</strong>: Interactive opacity slider blending Grad-CAM saliency directly over leaf lesions (55% AI Attention), alongside agronomic management protocols.</em></p>
+        <div align="left" style="font-size: 0.9em; padding: 10px;">
+          <p><strong>Diagnosis Result:</strong></p>
+          <ul>
+            <li><strong>Model</strong>: EfficientNet-B0 (Compound Scaling Architecture)</li>
+            <li><strong>Condition Detected</strong>: <strong>Tomato — Septoria Leaf Spot</strong> (<em>Septoria lycopersici</em>)</li>
+            <li><strong>Status & Severity</strong>: 🔴 Pathology Detected | <strong>Moderate Severity</strong></li>
+            <li><strong>Primary Confidence</strong>: <strong>77.72%</strong></li>
+            <li><strong>Visual Saliency</strong>: Blend Mode with interactive opacity slider set at <strong>55% AI Attention</strong>, projecting heatmaps over foliar necrosis.</li>
+            <li><strong>Top Candidates</strong>:
+              <ol>
+                <li>Tomato • Septoria Leaf Spot: <strong>77.72%</strong></li>
+                <li>Tomato • Target Spot: <strong>16.25%</strong></li>
+                <li>Grape • Black Rot: <strong>6.02%</strong></li>
+              </ol>
+            </li>
+            <li><strong>Prescribed Action Plan</strong>: Promptly prune lower affected leaves; apply copper-based organic fungicides when first cluster flowers emerge.</li>
+          </ul>
+        </div>
       </td>
     </tr>
   </table>
