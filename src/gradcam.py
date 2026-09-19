@@ -85,6 +85,9 @@ def compute_gradcam_heatmap(
         cam = tf.zeros_like(cam)
 
     cam_np = cam.numpy()
+    del tape, grads, features
+    import gc
+    gc.collect()
     return np.nan_to_num(cam_np, nan=0.0, posinf=1.0, neginf=0.0)
 
 
