@@ -11,61 +11,6 @@
 
 ---
 
-## 🖥️ Live Application & Explainable AI (XAI) Previews
-
-<div align="center">
-  <table border="0">
-    <tr>
-      <td width="50%" align="center" valign="top">
-        <h4>Figure 1: MobileNetV2 — Split Attribution Mode</h4>
-        <img src="./assets/dashboard_preview.png" alt="CropDetect AI Split View - MobileNetV2" width="100%" style="border-radius: 8px;" />
-        <div align="left" style="font-size: 0.9em; padding: 10px;">
-          <p><strong>Diagnosis Result:</strong></p>
-          <ul>
-            <li><strong>Model</strong>: MobileNetV2 (Edge Architecture)</li>
-            <li><strong>Condition Detected</strong>: <strong>Tomato — Septoria Leaf Spot</strong> (<em>Septoria lycopersici</em>)</li>
-            <li><strong>Status & Severity</strong>: 🔴 Pathology Detected | <strong>Moderate Severity</strong></li>
-            <li><strong>Primary Confidence</strong>: <strong>87.94%</strong></li>
-            <li><strong>Visual Saliency</strong>: Split Mode displaying original foliage alongside raw Grad-CAM attribution isolating lesion clusters.</li>
-            <li><strong>Top Candidates</strong>:
-              <ol>
-                <li>Tomato • Septoria Leaf Spot: <strong>87.94%</strong></li>
-                <li>Tomato • Target Spot: <strong>7.63%</strong></li>
-                <li>Grape • Healthy Leaf: <strong>4.12%</strong></li>
-              </ol>
-            </li>
-            <li><strong>Prescribed Action Plan</strong>: Promptly prune lower affected leaves; apply copper-based organic fungicides when first cluster flowers emerge.</li>
-          </ul>
-        </div>
-      </td>
-      <td width="50%" align="center" valign="top">
-        <h4>Figure 2: EfficientNet-B0 — Interactive Blend Mode</h4>
-        <img src="./assets/gradcam_blend_preview.png" alt="CropDetect AI Blend View - EfficientNet-B0" width="100%" style="border-radius: 8px;" />
-        <div align="left" style="font-size: 0.9em; padding: 10px;">
-          <p><strong>Diagnosis Result:</strong></p>
-          <ul>
-            <li><strong>Model</strong>: EfficientNet-B0 (Compound Scaling Architecture)</li>
-            <li><strong>Condition Detected</strong>: <strong>Tomato — Septoria Leaf Spot</strong> (<em>Septoria lycopersici</em>)</li>
-            <li><strong>Status & Severity</strong>: 🔴 Pathology Detected | <strong>Moderate Severity</strong></li>
-            <li><strong>Primary Confidence</strong>: <strong>77.72%</strong></li>
-            <li><strong>Visual Saliency</strong>: Blend Mode with interactive opacity slider set at <strong>55% AI Attention</strong>, projecting heatmaps over foliar necrosis.</li>
-            <li><strong>Top Candidates</strong>:
-              <ol>
-                <li>Tomato • Septoria Leaf Spot: <strong>77.72%</strong></li>
-                <li>Tomato • Target Spot: <strong>16.25%</strong></li>
-                <li>Grape • Black Rot: <strong>6.02%</strong></li>
-              </ol>
-            </li>
-            <li><strong>Prescribed Action Plan</strong>: Promptly prune lower affected leaves; apply copper-based organic fungicides when first cluster flowers emerge.</li>
-          </ul>
-        </div>
-      </td>
-    </tr>
-  </table>
-</div>
-
----
-
 ## 📌 Executive Summary
 
 **CropDetect AI** is an end-to-end precision agriculture intelligence platform designed to empower farmers, agronomists, and researchers with instantaneous, accurate crop identification and plant disease diagnosis. Leveraging state-of-the-art computer vision and deep convolutional neural networks, the system identifies **38 distinct crop pathologies and healthy conditions across 14 vital crop species** with **98.51% validation accuracy**.
@@ -161,6 +106,54 @@ Beyond standard classification, CropDetect AI bridges the gap between deep learn
 │  }                                                                          │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
+
+---
+
+## 🖥️ Live Application & Explainable AI (XAI) Previews
+
+### 1. MobileNetV2 — Split Attribution Mode (Edge Architecture)
+
+<div align="center">
+  <img src="./assets/dashboard_preview.png" alt="CropDetect AI Split View - MobileNetV2" width="100%" style="border-radius: 8px;" />
+</div>
+
+#### 📋 Diagnostic Report & Result Breakdown (MobileNetV2):
+- **Model Architecture**: **MobileNetV2** (Optimized for edge execution and sub-50ms CPU latency)
+- **Diagnosed Condition**: **Tomato — Septoria Leaf Spot** (*Septoria lycopersici*)
+- **Health Status & Severity**: 🔴 **Pathology Detected** | **Moderate Severity**
+- **Primary Model Confidence**: **87.94%**
+- **AI Visual Saliency (Grad-CAM)**: **Split Mode** — Displays the original foliage photograph side-by-side with the raw Grad-CAM attribution map, highlighting lesion target focus points across the leaf surface.
+- **Symptoms Observed**: Numerous small circular spots (1/8 inch) with dark margins and gray/tan centers dotted with tiny black pycnidia specs.
+- **Differential Candidates**:
+  1. `01` **Tomato • Septoria Leaf Spot** (Diseased) — **87.94%**
+  2. `02` **Tomato • Target Spot** (Diseased) — **7.63%**
+  3. `03` **Grape • Healthy Leaf** (Healthy) — **4.12%**
+- **Agronomic Action Plan & Remedies (Organic)**:
+  - Remove lower affected leaves promptly.
+  - Spray copper fungicides starting when first cluster flowers emerge.
+
+---
+
+### 2. EfficientNet-B0 — Interactive Blend Mode (Compound Scaling Architecture)
+
+<div align="center">
+  <img src="./assets/gradcam_blend_preview.png" alt="CropDetect AI Blend View - EfficientNet-B0" width="100%" style="border-radius: 8px;" />
+</div>
+
+#### 📋 Diagnostic Report & Result Breakdown (EfficientNet-B0):
+- **Model Architecture**: **EfficientNet-B0** (Compound scaling balancing depth, width, and resolution; 98.51% validation accuracy)
+- **Diagnosed Condition**: **Tomato — Septoria Leaf Spot** (*Septoria lycopersici*)
+- **Health Status & Severity**: 🔴 **Pathology Detected** | **Moderate Severity**
+- **Primary Model Confidence**: **77.72%**
+- **AI Visual Saliency (Grad-CAM)**: **Interactive Blend Mode** — Features a real-time opacity slider set at **55% AI Attention**, directly projecting the JET colormap attention heatmap onto physical leaf necrosis and petiole junctions.
+- **Symptoms Observed**: Numerous small circular spots (1/8 inch) with dark margins and gray/tan centers dotted with tiny black pycnidia specs.
+- **Differential Candidates**:
+  1. `01` **Tomato • Septoria Leaf Spot** (Diseased) — **77.72%**
+  2. `02` **Tomato • Target Spot** (Diseased) — **16.25%**
+  3. `03` **Grape • Black Rot** (Diseased) — **6.02%**
+- **Agronomic Action Plan & Remedies (Organic)**:
+  - Remove lower affected leaves promptly.
+  - Spray copper fungicides starting when first cluster flowers emerge.
 
 ---
 
