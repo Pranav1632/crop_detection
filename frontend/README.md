@@ -1,34 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CropDetect AI — Next.js 16 Web Application 🌾
 
-## Getting Started
+This directory contains the production-grade frontend client for **CropDetect AI**, built with **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS v4**, and **Lucide Icons**.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+<div align="center">
+  <table border="0">
+    <tr>
+      <td width="50%" align="center" valign="top">
+        <h4>Split Attribution Mode (MobileNetV2)</h4>
+        <img src="./public/dashboard_preview.png" alt="CropDetect AI Split View - MobileNetV2" width="100%" />
+        <p align="center"><em>Side-by-side foliage and raw Grad-CAM lesion focus.</em></p>
+      </td>
+      <td width="50%" align="center" valign="top">
+        <h4>Interactive Blend Mode (EfficientNet-B0)</h4>
+        <img src="./public/gradcam_blend_preview.png" alt="CropDetect AI Blend View - EfficientNet-B0" width="100%" />
+        <p align="center"><em>Interactive opacity slider (55% AI attention) overlaid on leaf.</em></p>
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
+## 🌟 Key Features
+
+- **Live Camera Ingestion**: Direct browser camera access using `navigator.mediaDevices.getUserMedia` with mobile rear-facing camera support (`facingMode: "environment"`), visual alignment frame guide, and shutter flash animation.
+- **Drag-and-Drop Image Uploader**: Fast client-side image loading and instant image preview before diagnosis.
+- **Built-in Sample Gallery**: 6 diverse pre-loaded leaf samples for instant 1-click diagnostic testing without uploading files.
+- **Dual Model Selection & Comparative Mode**:
+  - Switch dynamically between **MobileNetV2** (Edge-optimized, sub-50ms CPU latency) and **EfficientNet-B0** (98.51% validation accuracy).
+  - Side-by-side comparison mode to evaluate both model outputs simultaneously on the same leaf.
+- **Interactive Explainable AI (Grad-CAM)**:
+  - Interactive opacity slider (0%–100%) to blend visual heatmaps with high-resolution leaf photographs.
+  - Multi-view inspector (Overlay, Raw Heatmap, Original Leaf).
+- **In-Field Image Quality Warnings**: Visual alerts when Laplacian blur or lighting diagnostics flag poor photography conditions.
+- **Agronomic Action Plans**: Clean collapsible cards detailing symptoms, severity, organic bio-controls, chemical treatments, and preventative hygiene.
+
+---
+
+## 📂 Component Directory
+
+```
+frontend/src/
+├── app/
+│   ├── layout.tsx             # Root layout with metadata and styling
+│   └── page.tsx               # Main dashboard with camera, uploader, model switch, and diagnostics
+├── components/
+│   ├── CameraCapture.tsx      # Live webcam/phone camera with rear-facing toggle
+│   ├── DiagnosisCard.tsx      # Agronomic advisory, symptoms, remedies, prevention tabs
+│   ├── GradCamViewer.tsx      # Interactive Grad-CAM opacity slider and view inspector
+│   ├── Header.tsx             # App header with backend connectivity indicator
+│   ├── ImageUploader.tsx      # File dropzone with thumbnail preview
+│   └── SampleGallery.tsx      # Built-in reference leaf samples for 1-click testing
+├── lib/
+│   └── api.ts                 # Typed HTTP client calling FastAPI backend (/predict, /health)
+└── types/
+    └── index.ts               # TypeScript data definitions matching backend Pydantic schemas
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Getting Started
 
-## Learn More
+### 1. Prerequisites
+- Node.js 20+
+- pnpm (`npm install -g pnpm`)
 
-To learn more about Next.js, take a look at the following resources:
+### 2. Install Dependencies
+```bash
+pnpm install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. Configure Environment
+Create a `.env.local` file (optional, defaults to `http://localhost:8000`):
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 4. Run Development Server
+```bash
+pnpm dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 5. Production Build
+```bash
+pnpm build
+pnpm start
+```
