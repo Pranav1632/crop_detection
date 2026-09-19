@@ -16,7 +16,19 @@ This directory contains the production-grade frontend client for **CropDetect AI
 
 ---
 
-### 2. EfficientNet-B0 (Interactive Blend Mode)
+### 2. MobileNetV2 (Healthy Baseline Foliage)
+<div align="center">
+  <img src="./public/healthy_leaf_preview.png" alt="CropDetect AI Healthy Leaf - MobileNetV2" width="100%" />
+</div>
+
+- **Diagnosed Condition**: Grape — Healthy Leaf (89.48% confidence)
+- **Status**: 🟢 Healthy Foliage (Severity: None)
+- **Visual Saliency**: Split Mode showing clean baseline foliage without lesion hot-spots
+- **Top Candidates**: Grape Healthy (89.48%), Bell Pepper Healthy (10.2%), Tomato Late Blight (0.32%)
+
+---
+
+### 3. EfficientNet-B0 (Interactive Blend Mode)
 <div align="center">
   <img src="./public/gradcam_blend_preview.png" alt="CropDetect AI Blend View - EfficientNet-B0" width="100%" />
 </div>

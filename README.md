@@ -134,7 +134,27 @@ Beyond standard classification, CropDetect AI bridges the gap between deep learn
 
 ---
 
-### 2. EfficientNet-B0 — Interactive Blend Mode (Compound Scaling Architecture)
+### 2. MobileNetV2 — Healthy Foliage Diagnosis (Grape)
+
+<div align="center">
+  <img src="./assets/healthy_leaf_preview.png" alt="CropDetect AI Healthy Leaf - MobileNetV2" width="100%" style="border-radius: 8px;" />
+</div>
+
+#### 📋 Diagnostic Report & Result Breakdown (MobileNetV2 - Healthy Baseline):
+- **Model Architecture**: **MobileNetV2** (Edge Architecture)
+- **Diagnosed Condition**: **Grape — Healthy Leaf**
+- **Health Status & Severity**: 🟢 **Healthy Foliage** | **Severity: None** (Pathogen: None)
+- **Primary Model Confidence**: **89.48%**
+- **AI Visual Saliency (Grad-CAM)**: **Split Mode** — Demonstrates clean baseline leaf attribution without concentrated necrotic hotspot triggers.
+- **Symptoms / Visual Markers**: Uniformly green palmate leaf surface, crisp margins, clear venation, intact leaf petiole.
+- **Differential Candidates**:
+  1. `01` **Grape • Healthy Leaf** (Healthy) — **89.48%**
+  2. `02` **Pepper (Bell) • Healthy Leaf** (Healthy) — **10.2%**
+  3. `03` **Tomato • Late Blight** (Diseased) — **0.32%**
+
+---
+
+### 3. EfficientNet-B0 — Interactive Blend Mode (Compound Scaling Architecture)
 
 <div align="center">
   <img src="./assets/gradcam_blend_preview.png" alt="CropDetect AI Blend View - EfficientNet-B0" width="100%" style="border-radius: 8px;" />
