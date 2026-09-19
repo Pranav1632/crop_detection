@@ -9,9 +9,8 @@ env/
 venv/
 .venv/
 
-# Ignore large binary weights & zip archives
+# Ignore root-level raw files & zip archives
 /*.keras
-models/mobilenet.keras
 *.zip
 
 # Pytest & Coverage
